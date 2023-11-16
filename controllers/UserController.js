@@ -1,14 +1,8 @@
-const {
-  User
-} = require("../models")
+const { User } = require("../models");
 
-const {
-  generateToken
-} = require("../utils/jwt")
+const { generateToken } = require("../utils/jwt");
 
-const {
-  comparePassword
-} = require("../utils/bcrypt")
+const { comparePassword } = require("../utils/bcrypt");
 
 class UserController {
   static async register(req, res) {
@@ -21,7 +15,7 @@ class UserController {
         profile_image_url,
         age,
         phone_number,
-      } = req.body
+      } = req.body;
 
       const user = await User.create({
         email,
@@ -31,7 +25,7 @@ class UserController {
         profile_image_url,
         age,
         phone_number,
-      })
+      });
 
       res.status(201).json({
         user: {
@@ -41,37 +35,37 @@ class UserController {
           profile_image_url: user.profile_image_url,
           age: user.age,
           phone_number: user.phone_number,
-        }
-      })
+        },
+      });
     } catch (error) {
       res.status(500).json({
-        message: error.message
-      })
+        message: error.message,
+      });
     }
   }
 
   static async login(req, res) {
     try {
-      const { email, password } = req.body
+      const { email, password } = req.body;
 
       const user = await User.findOne({
         where: {
-          email
-        }
-      })
+          email,
+        },
+      });
 
       if (!user) {
         res.status(404).json({
-          message: "Email not found"
-        })
+          message: "Email not found",
+        });
       }
 
-      const checkPassword = comparePassword(password, user.password)
+      const checkPassword = comparePassword(password, user.password);
 
       if (!checkPassword) {
         res.status(404).json({
-          message: "Wrong password"
-        })
+          message: "Wrong password",
+        });
       }
 
       const token = generateToken({
@@ -82,21 +76,21 @@ class UserController {
         profile_image_url: user.profile_image_url,
         age: user.age,
         phone_number: user.phone_number,
-      })
+      });
 
       res.status(200).json({
-        token
-      })
+        token,
+      });
     } catch (error) {
       res.status(500).json({
-        message: error.message
-      })
+        message: error.message,
+      });
     }
   }
 
   static async update(req, res) {
     try {
-      const { id } = req.params
+      const { id } = req.params;
       const {
         email,
         full_name,
@@ -117,15 +111,15 @@ class UserController {
         },
         {
           where: {
-            id
+            id,
           },
           returning: true,
-        },
-      )
+        }
+      );
 
       if (count === 0) {
         res.status(404).json({
-          message: "User not found"
+          message: "User not found",
         });
       } else {
         res.status(200).json({
@@ -136,42 +130,41 @@ class UserController {
             profile_image_url: updatedUser.profile_image_url,
             age: updatedUser.age,
             phone_number: updatedUser.phone_number,
-          }
+          },
         });
       }
-
     } catch (error) {
       res.status(500).json({
-        message: error.message
+        message: error.message,
       });
     }
   }
 
   static async destroy(req, res) {
     try {
-      const { id } = req.params
+      const { id } = req.params;
 
       const deletedUser = await User.destroy({
         where: {
-          id: id
-        }
-      })
+          id: id,
+        },
+      });
 
       if (deletedUser === 0) {
         res.status(404).json({
-          message: "User not found"
-        })
+          message: "User not found",
+        });
       }
 
       res.status(200).json({
-        message: "Your account has been successfully deleted"
-      })
+        message: "Your account has been successfully deleted",
+      });
     } catch (error) {
       res.status(500).json({
-        message: error.message
-      })
+        message: error.message,
+      });
     }
   }
 }
 
-module.exports = UserController
+module.exports = UserController;
