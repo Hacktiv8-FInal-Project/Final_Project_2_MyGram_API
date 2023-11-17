@@ -27,12 +27,12 @@
 
 // authorization.js
 
-const { User, Photo } = require("../models");
+const { User, Photo, SocialMedia } = require("../models");
 class Authorization {
   static async user(req, res, next) {
     try {
       const userId = req.userData.id;
-      const { id } = req.params; 
+      const { id } = req.params;
       const user = await User.findByPk(id);
       if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -62,6 +62,25 @@ class Authorization {
       res.status(500).json({ message: "Internal server error" });
     }
   }
+
+  static async socialmedia(req, res, next) {
+    try {
+      const userId = req.userData.id;
+      const { id } = req.params;
+      const socialmedia = await SocialMedia.findByPk(id);
+      if (!socialmedia) {
+        return res.status(404).json({ message: "Social Media not found" });
+      }
+      if (userId !== socialmedia.UserId) {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
+      next();
+    } catch (err) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+
+  
 }
 
 module.exports = Authorization;
