@@ -64,8 +64,10 @@ class SocialMediaController {
 
   static async updateSocialMedia(req, res) {
     try {
-      const { socmedId } = req.params.id;
+      const socmedId = req.params.id;
       const { name, social_media_url } = req.body;
+      console.log(req.body);
+
   
       const updatedUser = await SocialMedia.update(
         { name, social_media_url },
