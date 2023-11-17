@@ -27,7 +27,7 @@
 
 // authorization.js
 
-const { User, Photo, SocialMedia } = require("../models");
+const { User, Photo, SocialMedia, Comment } = require("../models");
 class Authorization {
   static async user(req, res, next) {
     try {
@@ -80,6 +80,22 @@ class Authorization {
     }
   }
 
+  static async comment(req, res, next) {
+    try {
+      const userId = req.userData.id;
+      const { id } = req.params;
+      const comment = await Comment.findByPk(id);
+      if (!comment) {
+        return res.status(404).json({ message: "Comment not found" });
+      }
+      if (userId !== comment.UserId) {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
+      next();
+    } catch (err) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
   
 }
 
