@@ -11,7 +11,7 @@
     "db:create:test": "SET NODE_ENV=test && npx sequelize db:create",
     "db:migrate:test": "SET NODE_ENV=test && npx sequelize db:migrate",
     "db:create:prod": "SET NODE_ENV=prod && npx sequelize db:create",
-    "db:migrate:prod": "SET NODE_ENV=prod && npx sequelize db:migrate"
+    "db:migrate:prod": "SET NODE_ENV=prod npx sequelize db:migrate"
   },
   "author": "",
   "license": "ISC",
