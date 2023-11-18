@@ -11,8 +11,8 @@
     "db:create:test": "NODE_ENV=test&& npx sequelize db:create",
     "db:migrate:test": "NODE_ENV=test&& npx sequelize db:migrate",
     "db:create:prod": "NODE_ENV=prod&& npx sequelize db:create",
-    "db:migrate:prod": "SET NODE_ENV=production&& npx sequelize db:migrate",
-    "db:undoall:prod": "SET NODE_ENV=production&& npx sequelize db:migrate:undo:all"
+    "db:migrate:prod": "NODE_ENV=production&& npx sequelize db:migrate",
+    "db:undoall:prod": "NODE_ENV=production&& npx sequelize db:migrate:undo:all"
   },
   "author": "",
   "license": "ISC",
