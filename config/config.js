@@ -1,6 +1,6 @@
 const dotenv = require('dotenv')
 const path = require('path')
-console.log(dotenv.config({ path: path.join(__dirname, '../.env') }))
+//console.log(dotenv.config({ path: path.join(__dirname, '../.env') }))//
 
 const config = {
   "development": {
