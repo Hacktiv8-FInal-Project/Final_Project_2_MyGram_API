@@ -8,10 +8,10 @@
     "start:dev": "nodemon bin/http.js",
     "db:create:dev": "npx sequelize db:create",
     "db:migrate:dev": "npx sequelize db:migrate",
-    "db:create:test": "SET NODE_ENV=test&& npx sequelize db:create",
-    "db:migrate:test": "SET NODE_ENV=test&& npx sequelize db:migrate",
-    "db:create:prod": "SET NODE_ENV=production npx sequelize db:create",
-    "db:migrate:prod": "SET NODE_ENV=production npx sequelize db:migrate"
+    "db:create:test": "NODE_ENV=test&& npx sequelize db:create",
+    "db:migrate:test": "NODE_ENV=test&& npx sequelize db:migrate",
+    "db:create:prod": "NODE_ENV=production npx sequelize db:create",
+    "db:migrate:prod": "NODE_ENV=production npx sequelize db:migrate"
   },
   "author": "",
   "license": "ISC",
