@@ -4,12 +4,13 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "test": "npm run db:create:test || true && npm run db:migrate:test && jest --detectOpenHandles --forceExit --runInBand --verbose",
     "start": "node bin/http.js",
     "start:dev": "nodemon bin/http.js",
     "db:create:dev": "npx sequelize db:create",
     "db:migrate:dev": "npx sequelize db:migrate",
-    "db:create:test": "NODE_ENV=test&& npx sequelize db:create",
-    "db:migrate:test": "NODE_ENV=test&& npx sequelize db:migrate",
+    "db:create:test": "NODE_ENV=test&& sequelize db:create",
+    "db:migrate:test": "NODE_ENV=test&& sequelize db:migrate",
     "db:create:prod": "NODE_ENV=prod&& npx sequelize db:create",
     "db:migrate:prod": "NODE_ENV=production&& npx sequelize db:migrate",
     "db:undoall:prod": "NODE_ENV=production&& npx sequelize db:migrate:undo:all"
@@ -26,7 +27,9 @@
     "sequelize": "^6.35.0"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^3.0.1",
-    "sequelize-cli": "^6.6.2"
+    "sequelize-cli": "^6.6.2",
+    "supertest": "^6.3.3"
   }
 }

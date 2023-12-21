@@ -4,6 +4,8 @@ const { generateToken } = require("../utils/jwt");
 
 const { comparePassword } = require("../utils/bcrypt");
 
+const { ValidationError } = require("sequelize");
+
 class UserController {
   static async register(req, res) {
     try {
@@ -38,6 +40,11 @@ class UserController {
         },
       });
     } catch (error) {
+      if (error instanceof ValidationError) {
+        return res.status(400).json({
+          message: error.errors[0].message,
+        });
+      }
       res.status(500).json({
         message: error.message,
       });
@@ -55,15 +62,21 @@ class UserController {
       });
 
       if (!user) {
-        res.status(404).json({
+        return res.status(404).json({
           message: "Email not found",
         });
       }
 
       const checkPassword = comparePassword(password, user.password);
 
+      if (password === "") {
+        return res.status(404).json({
+          message: "Password is required",
+        });
+      }
+      
       if (!checkPassword) {
-        res.status(404).json({
+        return res.status(404).json({
           message: "Wrong password",
         });
       }
