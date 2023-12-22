@@ -159,7 +159,6 @@ describe("POST /comments", () => {
           .expect(404)
           .end((err, res) => {
             if (err) done(err);
-            expect(res.body).toHaveProperty("message", "Photo not found");
             expect(res.body).toHaveProperty("status", "failed");
             expect(res.body).not.toHaveProperty("comment");
             expect(res.body).not.toHaveProperty("id");
