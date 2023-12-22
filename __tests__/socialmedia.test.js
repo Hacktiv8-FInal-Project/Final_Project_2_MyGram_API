@@ -45,7 +45,7 @@ describe("POST /socialmedias", () => {
     try {
       await User.create(userData);
       await SocialMedia.create(SocialMediaData);
-    } catch {
+    } catch (error) {
       console.log(error);
     }
   });
