@@ -25,8 +25,8 @@ class SocialMediaController {
           social_media: response,
         });
       }
-    } catch (err) {
-      console.error(err);  // Log the error for debugging purposes
+    } catch (error) {
+      console.log(error);  // Log the error for debugging purposes
       return res.status(401).json({ error: 'Failed to create social media entry' });
     }
   }
